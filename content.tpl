@@ -302,6 +302,8 @@
 
     </section>
 </div>
+    <div class="google-map"><iframe width="100%" height="400px" frameborder="0" style="border:0"
+src="https://mattlaguardia.github.io/mapbox-storelocator/" allowfullscreen></iframe></div>
 
 
 </section>
