@@ -44,12 +44,12 @@ h1 {
 }
 
 a {
-  color: #404040;
+  color: #d60404;
   text-decoration: none;
 }
 
 a:hover {
-  color: #101010;
+  color: #a80707;
 }
 
 .heading {
@@ -87,7 +87,7 @@ a:hover {
 
 .listings .item .title {
   display: block;
-  color: #00853e;
+  color: #d60404;
   font-weight: 700;
 }
 
@@ -97,7 +97,7 @@ a:hover {
 
 .listings .item.active .title,
 .listings .item .title:hover {
-  color: #8cc63f;
+  color: #a80707;
 }
 
 .listings .item.active {
@@ -116,7 +116,7 @@ a:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #00853e;
+  background: #a80707;
   border-radius: 0;
 }
 /* Marker tweaks */
@@ -171,4 +171,7 @@ a:hover {
 }
 .mapbox-style {
   height: 300px;
+}
+div.mapboxgl-ctrl-attrib.mapboxgl-ctrl {
+  display: none;
 }
