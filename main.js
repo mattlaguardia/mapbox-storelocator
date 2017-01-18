@@ -98,143 +98,55 @@ var stores = {
   "type": "Feature",
   "geometry": {
     "type": "Point",
-    "coordinates": [-77.002583742142,
-      38.887041080933
+    "coordinates": [-122.244474,
+      37.7839302
     ]
   },
   "properties": {
     "phoneFormatted": "(555) 555-5555",
-    "phone": "2025479338",
-    "address": "221 Pennsylvania Ave SE",
-    "city": "Washington DC",
+    "phone": "2023379338",
+    "address": "Harborside Health Center - 1840 Embarcadero",
+    "city": "Oakland",
     "country": "United States",
-    "crossStreet": "btwn 2nd & 3rd Sts. SE",
-    "postalCode": "20003",
-    "state": "D.C."
+    "postalCode": "94606",
+    "state": "CA"
   }
 }, {
   "type": "Feature",
   "geometry": {
     "type": "Point",
-    "coordinates": [-76.933492720127,
-      38.99225245786
+    "coordinates": [-117.6772419,
+      34.1069268
     ]
   },
   "properties": {
-    "address": "8204 Baltimore Ave",
-    "city": "College Park",
+    "phoneFormatted": "(555) 555-5555",
+    "phone": "2023379338",
+    "address": "CaptainJacks - 2085 W Foothill Blvd",
+    "city": "Upland",
     "country": "United States",
-    "postalCode": "20740",
-    "state": "MD"
+    "postalCode": "94606",
+    "state": "CA"
   }
 }, {
   "type": "Feature",
   "geometry": {
     "type": "Point",
-    "coordinates": [-77.097083330154,
-      38.980979
+    "coordinates": [-105.0058609,
+      39.7189584
     ]
   },
   "properties": {
-    "phoneFormatted": "(301) 654-7336",
-    "phone": "3016547336",
-    "address": "4831 Bethesda Ave",
-    "cc": "US",
-    "city": "Bethesda",
+    "phoneFormatted": "(555) 555-5555",
+    "phone": "2023379338",
+    "address": "New Amsterdam Organics - 150 Rio Grande Blvd",
+    "city": "Denver",
     "country": "United States",
-    "postalCode": "20814",
-    "state": "MD"
+    "postalCode": "80223",
+    "state": "CO"
   }
-}, {
-  "type": "Feature",
-  "geometry": {
-    "type": "Point",
-    "coordinates": [-77.359425054188,
-      38.958058116661
-    ]
-  },
-  "properties": {
-    "phoneFormatted": "(571) 203-0082",
-    "phone": "5712030082",
-    "address": "11935 Democracy Dr",
-    "city": "Reston",
-    "country": "United States",
-    "crossStreet": "btw Explorer & Library",
-    "postalCode": "20190",
-    "state": "VA"
-  }
-}, {
-  "type": "Feature",
-  "geometry": {
-    "type": "Point",
-    "coordinates": [-77.10853099823,
-      38.880100922392
-    ]
-  },
-  "properties": {
-    "phoneFormatted": "(703) 522-2016",
-    "phone": "7035222016",
-    "address": "4075 Wilson Blvd",
-    "city": "Arlington",
-    "country": "United States",
-    "crossStreet": "at N Randolph St.",
-    "postalCode": "22203",
-    "state": "VA"
-  }
-}, {
-  "type": "Feature",
-  "geometry": {
-    "type": "Point",
-    "coordinates": [-75.28784,
-      40.008008
-    ]
-  },
-  "properties": {
-    "phoneFormatted": "(610) 642-9400",
-    "phone": "6106429400",
-    "address": "68 Coulter Ave",
-    "city": "Ardmore",
-    "country": "United States",
-    "postalCode": "19003",
-    "state": "PA"
-  }
-}, {
-  "type": "Feature",
-  "geometry": {
-    "type": "Point",
-    "coordinates": [-75.20121216774,
-      39.954030175164
-    ]
-  },
-  "properties": {
-    "phoneFormatted": "(215) 386-1365",
-    "phone": "2153861365",
-    "address": "3925 Walnut St",
-    "city": "Philadelphia",
-    "country": "United States",
-    "postalCode": "19104",
-    "state": "PA"
-  }
-}, {
-  "type": "Feature",
-  "geometry": {
-    "type": "Point",
-    "coordinates": [-77.043959498405,
-      38.903883387232
-    ]
-  },
-  "properties": {
-    "phoneFormatted": "(202) 331-3355",
-    "phone": "2023313355",
-    "address": "1901 L St. NW",
-    "city": "Washington DC",
-    "country": "United States",
-    "crossStreet": "at 19th St",
-    "postalCode": "20036",
-    "state": "D.C."
-  }
-}]
-};
+}
+]};
 // This adds the data to the map
   map.on('load', function (e) {
     // Add a GeoJSON source containing place coordinates and information.
@@ -298,7 +210,7 @@ var stores = {
 
     var popup = new mapboxgl.Popup({closeOnClick: false})
           .setLngLat(currentFeature.geometry.coordinates)
-          .setHTML('<h3>Sweetgreen</h3>' +
+          .setHTML('<h3>Store: </h3>' +
             '<h4>' + currentFeature.properties.address + '</h4>')
           .addTo(map);
   }
