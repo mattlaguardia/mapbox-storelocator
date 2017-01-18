@@ -16,7 +16,7 @@ body {
   position: absolute;
   width: 33.3333%;
   height: 400px;
-  top: 0;
+  top: 50px;
   left: 0;
   overflow: hidden;
   border-right: 1px solid rgba(0, 0, 0, 0.25);
@@ -30,7 +30,7 @@ body {
   position: absolute;
   left: 33.3333%;
   width: 66.6666%;
-  top: 0;
+  top: 50px;
   bottom: 0;
   height: 400px;
 }
