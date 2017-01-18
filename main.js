@@ -15,9 +15,9 @@ container: 'map',
 // style URL
 style: 'mapbox://styles/mapbox/light-v9',
 // initial position in [long, lat] format
-center: [-77.034084142948, 38.909671288923],
+center: [-118.1674248,40.5037172],
 // initial zoom
-zoom: 13
+zoom: 3.5
 });
 
 var stores = {
@@ -26,73 +26,73 @@ var stores = {
   "type": "Feature",
   "geometry": {
     "type": "Point",
-    "coordinates": [-77.034084142948,
-      38.909671288923
-    ]
+    "coordinates": [-122.1674248,47.5037172]
   },
   "properties": {
-    "phoneFormatted": "(202) 234-7336",
+    "name": "Emerald Haze Cannabis Emporium",
+    "phoneFormatted": "(555) 555-5555",
     "phone": "2022347336",
-    "address": "1471 P St NW",
-    "city": "Washington DC",
+    "address": "Emerald Haze Cannabis Emporium - 4033 NE Sunset Blvd, Suite 5",
+    "city": "Renton",
     "country": "United States",
-    "crossStreet": "at 15th St NW",
-    "postalCode": "20005",
-    "state": "D.C."
+    "state": "WA",
+    'marker-color': '#3ca0d3',
+    'marker-size': 'large',
+    'marker-symbol': 'rocket'
   }
 }, {
   "type": "Feature",
   "geometry": {
     "type": "Point",
-    "coordinates": [-77.049766,
-      38.900772
+    "coordinates": [-115.1483898,
+      36.1070396
     ]
   },
   "properties": {
-    "phoneFormatted": "(202) 507-8357",
+    "phoneFormatted": "(555) 555-5555",
     "phone": "2025078357",
-    "address": "2221 I St NW",
-    "city": "Washington DC",
+    "address": "The Grove - 4647 Swenson St",
+    "city": "Las Vegas",
     "country": "United States",
     "crossStreet": "at 22nd St NW",
     "postalCode": "20037",
-    "state": "D.C."
+    "state": "NV"
   }
 }, {
   "type": "Feature",
   "geometry": {
     "type": "Point",
-    "coordinates": [-77.043929,
-      38.910525
+    "coordinates": [-123.035363,
+      44.8885352
     ]
   },
   "properties": {
-    "phoneFormatted": "(202) 387-9338",
+    "phoneFormatted": "(555) 555-5555",
     "phone": "2023879338",
-    "address": "1512 Connecticut Ave NW",
-    "city": "Washington DC",
+    "address": "TLC Cannabis Emporium - 4550 Commercial St",
+    "city": "SE Salem",
     "country": "United States",
     "crossStreet": "at Dupont Circle",
     "postalCode": "20036",
-    "state": "D.C."
+    "state": "OR"
   }
 }, {
   "type": "Feature",
   "geometry": {
     "type": "Point",
-    "coordinates": [-77.0672,
-      38.90516896
+    "coordinates": [-122.4164089,
+      37.7768998
     ]
   },
   "properties": {
-    "phoneFormatted": "(202) 337-9338",
+    "phoneFormatted": "(555) 555-5555",
     "phone": "2023379338",
-    "address": "3333 M St NW",
-    "city": "Washington DC",
+    "address": "Sparc - 1256 Mission St",
+    "city": "San Francisco",
     "country": "United States",
     "crossStreet": "at 34th St NW",
-    "postalCode": "20007",
-    "state": "D.C."
+    "postalCode": "94103",
+    "state": "CA"
   }
 }, {
   "type": "Feature",
@@ -103,7 +103,7 @@ var stores = {
     ]
   },
   "properties": {
-    "phoneFormatted": "(202) 547-9338",
+    "phoneFormatted": "(555) 555-5555",
     "phone": "2025479338",
     "address": "221 Pennsylvania Ave SE",
     "city": "Washington DC",
@@ -236,107 +236,115 @@ var stores = {
 }]
 };
 // This adds the data to the map
-map.on('load', function(e) {
-// Add a GeoJSON source containing place coordinates and information.
-map.addSource("places", {
-  "type": "geojson",
-  "data": stores
-});
-map.addLayer({
-  "id": "locations",
-  "type": "symbol",
-  "source": "places",
-  "layout": {
-    "icon-image": "restaurant-15",
-    "icon-allow-overlap": true,
+  map.on('load', function (e) {
+    // Add a GeoJSON source containing place coordinates and information.
+    map.addSource("places", {
+      "type": "geojson",
+      "data": stores
+    });
+    // This is where your '.addLayer()' used to be
+    // Initialize the list
+    buildLocationList(stores);
+
+  });
+
+  // This is where your interactions with the symbol layer used to be
+  // Now you have interactions with DOM markers instead
+  stores.features.forEach(function(marker, i) {
+    // Create an img element for the marker
+    var el = document.createElement('div');
+    el.id = "marker-" + i;
+    el.className = 'marker';
+    el.style.left='-28px';
+    el.style.top='-46px';
+    // Add markers to the map at all points
+    new mapboxgl.Marker(el)
+        .setLngLat(marker.geometry.coordinates)
+        .addTo(map);
+
+    el.addEventListener('click', function(e){
+        // 1. Fly to the point
+        flyToStore(marker);
+
+        // 2. Close all other popups and display popup for clicked store
+        createPopUp(marker);
+
+        // 3. Highlight listing in sidebar (and remove highlight for all other listings)
+        var activeItem = document.getElementsByClassName('active');
+
+        e.stopPropagation();
+        if (activeItem[0]) {
+           activeItem[0].classList.remove('active');
+        }
+
+        var listing = document.getElementById('listing-' + i);
+        listing.classList.add('active');
+
+    });
+  });
+
+
+  function flyToStore(currentFeature) {
+    map.flyTo({
+        center: currentFeature.geometry.coordinates,
+        zoom: 13
+      });
   }
-});
-// Initialize the list
-buildLocationList(stores);
-});
+
+  function createPopUp(currentFeature) {
+    var popUps = document.getElementsByClassName('mapboxgl-popup');
+    if (popUps[0]) popUps[0].remove();
 
 
-map.on('click', function(e) {
-var features = map.queryRenderedFeatures(e.point, {
-  layers: ['locations']
-});
-
-if (features.length) {
-  var clickedPoint = features[0];
-  // 1. Fly to the point
-  flyToStore(clickedPoint);
-
-  // 2. Close all other popups and display popup for clicked store
-  createPopUp(clickedPoint);
-
-  // 3. Highlight listing in sidebar (and remove highlight for all other listings)
- var activeItem = document.getElementsByClassName('active');
-  if (activeItem[0]) {
-    activeItem[0].classList.remove('active');
+    var popup = new mapboxgl.Popup({closeOnClick: false})
+          .setLngLat(currentFeature.geometry.coordinates)
+          .setHTML('<h3>Sweetgreen</h3>' +
+            '<h4>' + currentFeature.properties.address + '</h4>')
+          .addTo(map);
   }
 
-  var selectedFeature = clickedPoint.properties.address;
 
-  for (var i = 0; i < stores.features.length; i++ ) {
-    if (stores.features[i].properties.address === selectedFeature) {
-        selectedFeatureIndex = i;
+  function buildLocationList(data) {
+    for (i = 0; i < data.features.length; i++) {
+      var currentFeature = data.features[i];
+      var prop = currentFeature.properties;
+
+      var listings = document.getElementById('listings');
+      var listing = listings.appendChild(document.createElement('div'));
+      listing.className = 'item';
+      listing.id = "listing-" + i;
+
+      var link = listing.appendChild(document.createElement('a'));
+      link.href = '#';
+      link.className = 'title';
+      link.dataPosition = i;
+      link.innerHTML = prop.address;
+
+      var details = listing.appendChild(document.createElement('div'));
+      details.innerHTML = prop.city;
+      if (prop.phone) {
+        details.innerHTML += ' &middot; ' + prop.phoneFormatted;
+      }
+
+
+
+      link.addEventListener('click', function(e){
+        // Update the currentFeature to the store associated with the clicked link
+        var clickedListing = data.features[this.dataPosition];
+
+        // 1. Fly to the point
+        flyToStore(clickedListing);
+
+        // 2. Close all other popups and display popup for clicked store
+        createPopUp(clickedListing);
+
+        // 3. Highlight listing in sidebar (and remove highlight for all other listings)
+        var activeItem = document.getElementsByClassName('active');
+
+        if (activeItem[0]) {
+           activeItem[0].classList.remove('active');
+        }
+        this.parentNode.classList.add('active');
+      });
     }
   }
-
-  var listing = document.getElementById('listing-' + selectedFeatureIndex);
-  listing.classList.add('active');
-
-}
-});
-
-
-function flyToStore(currentFeature) {
-map.flyTo({
-  center: currentFeature.geometry.coordinates,
-  zoom: 15
-});
-}
-
-
-function createPopUp(currentFeature) {
-var popUps = document.getElementsByClassName('mapboxgl-popup');
-if (popUps[0]) popUps[0].remove();
-
-
-var popup = new mapboxgl.Popup({closeOnClick: false})
-  .setLngLat(currentFeature.geometry.coordinates)
-  .setHTML('<h3>Sweetgreen</h3>' +
-    '<h4>' + currentFeature.properties.address + '</h4>')
-  .addTo(map);
-}
-function buildLocationList(data) {
-// Iterate through the list of stores
-  for (i = 0; i < data.features.length; i++) {
-    var currentFeature = data.features[i];
-    // Shorten data.feature.properties to just `prop` so we're not
-    // writing this long form over and over again.
-    var prop = currentFeature.properties;
-    // Select the listing container in the HTML and append a div
-    // with the class 'item' for each store
-    var listings = document.getElementById('listings');
-    var listing = listings.appendChild(document.createElement('div'));
-    listing.className = 'item';
-    listing.id = 'listing-' + i;
-
-    // Create a new link with the class 'title' for each store
-    // and fill it with the store address
-    var link = listing.appendChild(document.createElement('a'));
-    link.href = '#';
-    link.className = 'title';
-    link.dataPosition = i;
-    link.innerHTML = prop.address;
-
-    // Create a new div with the class 'details' for each store
-    // and fill it with the city and phone number
-    var details = listing.appendChild(document.createElement('div'));
-    details.innerHTML = prop.city;
-    if (prop.phone) {
-      details.innerHTML += ' &middot; ' + prop.phoneFormatted;
-    }
-  }
-}

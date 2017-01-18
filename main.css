@@ -62,8 +62,6 @@ a:hover {
 
 .search input {
   height: 50px;
-  /*margin-top: 25px;
-  margin-bottom: 25px;*/
   width: 100%;
   padding-left: 10px;
 }
@@ -120,6 +118,15 @@ a:hover {
   border-radius: 0;
 }
 /* Marker tweaks */
+.marker {
+  border: none;
+  cursor: pointer;
+  height: 56px;
+  width: 56px;
+  background-image: url(./marker.png);
+  background-color: rgba(0, 0, 0, 0);
+  transform: translate(28px, 56px, 0);
+}
 
 .mapboxgl-popup-close-button {
   display: none;
