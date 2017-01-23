@@ -11,12 +11,13 @@ body {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-
+.container {
+  width: 80% !important;
+}
 .sidebar {
   position: absolute;
   width: 33.3333%;
-  height: 400px;
-  top: 50px;
+  height: 500px;
   left: 0;
   overflow: hidden;
   border-right: 1px solid rgba(0, 0, 0, 0.25);
@@ -30,9 +31,9 @@ body {
   position: absolute;
   left: 33.3333%;
   width: 66.6666%;
-  top: 50px;
+  top: 0px;
   bottom: 0;
-  height: 400px;
+  height: 500px;
 }
 
 h1 {
@@ -67,7 +68,7 @@ a:hover {
 }
 
 .listings {
-  height: 300px;
+  height: 400px;
   overflow: auto;
   padding-bottom: 60px;
 }
@@ -177,9 +178,9 @@ a:hover {
 .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
   border-bottom-color: #91c949;
 }
-.mapbox-style {
-  height: 300px;
-}
+/*.mapbox-style {
+  height: 500px;
+}*/
 div.mapboxgl-ctrl-attrib.mapboxgl-ctrl {
   display: none;
 }

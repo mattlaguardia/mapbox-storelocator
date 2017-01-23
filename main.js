@@ -17,7 +17,7 @@ style: 'mapbox://styles/mapbox/light-v9',
 // initial position in [long, lat] format
 center: [-117.1674248,41.5037172],
 // initial zoom
-zoom: 3.5
+zoom: 4
 });
 
 var stores = {
