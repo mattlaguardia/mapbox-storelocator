@@ -61,6 +61,11 @@ a:hover {
   padding: 0 10px;
 }
 
+.search {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 .search input {
   height: 50px;
   width: 100%;
